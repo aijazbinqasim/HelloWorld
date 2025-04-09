@@ -33,13 +33,16 @@ namespace HelloWorld.Controllers
         {
             IList<EmployeeModel> employees =
             [
-                 new() { ID = 1, Name = "Aijaz", Age = 35 },
-                 new() { ID = 2, Name = "Walidad", Age = 30 },
-                 new() { ID = 3, Name = "Ghani", Age = 25 },
-                 new() { ID = 4, Name = "Umer", Age = 20 }
+                 new EmployeeModel { ID = 1, Name = "Aijaz", Age = 35 },
+                 new EmployeeModel { ID = 2, Name = "Walidad", Age = 30 },
+                 new EmployeeModel { ID = 3, Name = "Ghani", Age = 25 },
+                 new EmployeeModel { ID = 4, Name = "Umer", Age = 20 },
+                 new EmployeeModel { ID = 5, Name = "Musavir", Age=10}
             ];
 
-            return employees.OrderByDescending(e => e.ID).ToList();
+            return employees;
+
+            //return employees.OrderByDescending(e => e.ID).ToList();
         }
 
         [Route("getsingleemployee")]
@@ -50,7 +53,8 @@ namespace HelloWorld.Controllers
             {
                 ID = 1,
                 Name = "Walidad",
-                Age = 30
+                Age = 30,
+                Address = "Sindh, PAK"
             };
 
             return emp;
@@ -59,16 +63,19 @@ namespace HelloWorld.Controllers
 
         // Following method returns "Mix Type Result such as data and http status codes".
         [Route("getsingleperson/{id:int}")]
+
+        //[Route("getsingleperson")]
         [HttpGet]
-        [ProducesResponseType<EmployeeModel>(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType<EmployeeModel>(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetSinglePerson(int id)
         {
             var emp = new EmployeeModel
             {
                 ID = id,
                 Name = "Walidad",
-                Age = 30
+                Age = 30,
+                Address = "Sindh, PAK"
             };
 
             return emp.ID == 1? Ok(emp) : NotFound();
